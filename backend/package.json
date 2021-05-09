@@ -1,0 +1,18 @@
+{
+    "name": "chat_backend",
+    "version": "1.0.0",
+    "description": "",
+    "author": "lazarev.sa",
+    "main": "build/server.js",
+    "scripts": {
+        "start": "tsc && node .",
+        "build": "tsc"
+    },
+    "dependencies": {
+        "express": "^4.16.1"
+    },
+    "devDependencies": {
+        "@types/node": "^15.0.2",
+        "typescript": "^4.1.3"
+    }
+}
