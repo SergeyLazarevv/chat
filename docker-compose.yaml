@@ -1,0 +1,24 @@
+version: '3'
+
+services: 
+    nginx:
+        image: nginx:latest
+        volumes:
+            - ./frontside/:/var/www/frontside/dist/
+            - ./backend/:/var/www/backend/
+            - ./default.conf:/etc/nginx/conf.d/
+        ports: 
+            - 80:80
+    db:
+        image: mysql:5.7
+        restart: always
+        command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci', '--default-authentication-plugin=mysql_native_password']
+        environment: 
+            MYSQL_USER: test
+            MYSQL_PASSWORD: test
+            MYSQL_DATABASE: test
+            MYSQL_ROOT_PASSWORD: test
+        ports:
+            - 3336:3336
+        volumes: 
+            - ./mysql:/var/lib/mysql
