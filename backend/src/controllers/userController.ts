@@ -1,8 +1,10 @@
-function addUser(request: any, response: any) {
+import { Request, Response } from 'express';
+
+function addUser(request: Request, response: Response): void {
     response.send("Добавление пользователя...")
 }
 
-function getUsers(request: any, response: any){
+function getUsers(request: Request, response: Response): void {
     response.send("Список пользователей...")
 }
 
