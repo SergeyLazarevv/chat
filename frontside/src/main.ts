@@ -10,6 +10,7 @@ import Button from 'primevue/button';
 import Password from 'primevue/password';
 import Divider from 'primevue/divider';
 import Dialog from 'primevue/dialog';
+import Sidebar from 'primevue/sidebar';
 
 import "primevue/resources/themes/saga-blue/theme.css"       //theme
 import "primevue/resources/primevue.min.css"                //core css
@@ -26,4 +27,5 @@ app.component('InputText', InputText);
 app.component('Checkbox', Checkbox);
 app.component('Dropdown', Dropdown);
 app.component('Calendar', Calendar);
+app.component('Sidebar',Sidebar);
 app.mount('#app')

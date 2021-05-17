@@ -4,6 +4,7 @@
     <div id="nav">
       <router-link to="/login">login22</router-link> |
       <router-link to="/main">main33</router-link>
+      <router-link to="/Registration">регистрация</router-link>
     </div>
   </main>
 </template>

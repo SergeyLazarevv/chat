@@ -2,41 +2,20 @@
     <div class="login-form p-d-flex" style='width:50%;margin:0 auto;'>
         <div class="p-d-flex p-jc-center">
             <div class="card">
-                <h5 class="p-text-center">Регистрация</h5>
+                <h5 class="p-text-center">Вход</h5>
                 <form @submit.prevent="formSubmit" class="p-fluid">
                     <div class="p-field">
                         <div class="p-float-label">
-                            <InputText v-model="state.name" id="name" placeholder="Имя"/>
+                            <InputText v-model="login" id="name" placeholder="Имя"/>
                         </div>
-                    </div>
-                    <div class="p-field">
-                        <div class="p-float-label p-input-icon-right">
-                            <i class="pi pi-envelope" />
-                            <InputText id="email"  v-model="state.email" placeholder="Почта"/>
-                        </div>
-      
                     </div>
                     <div class="p-field">
                         <div class="p-float-label">
-                            <Password id="password" v-model="state.password" placeholder="Пароль" toggleMask>
-                                <template #header>
-                                    <h6>Проверка сложности пароля</h6>
-                                </template>
-                                <template #footer="sp">
-                                    {{sp.level}}
-                                    <Divider />
-                                    <p class="p-mt-2">Пароль должен содержать</p>
-                                    <ul class="p-pl-2 p-ml-2 p-mt-0" style="line-height: 1.5">
-                                        <li>Заглавные буквы</li>
-                                        <li>Прописные буквы</li>
-                                        <li>Числа</li>
-                                        <li>Минимум 8 символов</li>
-                                    </ul>
-                                </template>
-                            </Password>
+                            <Password id="password" v-model="password" placeholder="Пароль" toggleMask/>
+                               
                         </div>
                     </div>
-                    <Button type="submit" label="Регистрация" class="p-mt-2" />
+                    <Button type="submit" label="Войти" class="p-mt-2" />
                 </form>
             </div>
         </div>
@@ -44,37 +23,24 @@
 </template>
 
 <script lang="ts">
-import { reactive, onMounted } from 'vue';
+import { ref, Ref, onMounted } from 'vue';
 
 export default {
     setup() {
         onMounted(() => {
-            console.log(state)
+            
         })
 
-        interface State {
-            name: string,
-            email: string,
-            password: string
-        }
+       
+        const login: Ref<string> = ref('')
+        const password: Ref<string> = ref('')
 
-        const state : State = reactive({
-            name: '',
-            email: '',
-            password: '',
-        });
-
-        const resetForm = () : void => {
-            state.name = '';
-            state.email = '';
-            state.password = '';
-        }
 
         const formSubmit = () => {
             
         }
 
-        return { state, resetForm, formSubmit}
+        return { login, password, formSubmit}
     }
 }
 </script>

@@ -17,9 +17,19 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
             title: "Форма входа",
             label: "Логин",
-            layout: "login"
+            //ayout: "login"
         },
         component: () => import("./view/Login.vue")
+    },
+    {
+        path: "/registration",
+        name: "registration",
+        meta: {
+            title: "Форма регистрации",
+            label: "Логин",
+            //layout: "login"
+        },
+        component: () => import("./view/Registration.vue")
     }
 ]
 
