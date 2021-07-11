@@ -5,5 +5,15 @@ CREATE TABLE IF NOT EXISTS users(
   mail varchar(30) NOT NULL, 
   login varchar(8) NOT NULL, 
   password varchar(10) NOT NULL, 
+  token varchar(30) NOT NULL, 
+  PRIMARY KEY (id)
+  );
+
+CREATE TABLE IF NOT EXISTS users( 
+  id int(11) NOT NULL AUTO_INCREMENT, 
+  mail varchar(30) NOT NULL, 
+  login varchar(8) NOT NULL, 
+  password varchar(10) NOT NULL, 
+  token varchar(30) NOT NULL, 
   PRIMARY KEY (id)
   );
