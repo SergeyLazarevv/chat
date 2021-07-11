@@ -21,6 +21,14 @@ export default defineComponent({
     Login,
     Main
   },
+  sockets:{
+    connect: function(){
+      console.log('socket connected')
+    },
+    customEmit: function(val){
+      console.log('this method fired by socket server. eg: io.emit("customEmit", data)')
+    }
+  },
   setup() {
     let count = ref(0)
     console.log(count)

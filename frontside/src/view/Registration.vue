@@ -50,6 +50,7 @@ export default {
     setup() {
         onMounted(() => {
             console.log('login',login)
+            this.$socket.emit('emit_method', 999);
         })
 
 

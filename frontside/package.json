@@ -10,8 +10,10 @@
     "esbuild": "^0.7.0",
     "primeicons": "^4.1.0",
     "primevue": "^3.4.0",
+    "socket.io-client": "^4.1.2",
     "vue": "^3.0.5",
-    "vue-router": "^4.0.6"
+    "vue-router": "^4.0.6",
+    "vue-socket.io": "^3.0.10"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.2.1",
@@ -25,6 +27,6 @@
     "vite": "^2.1.5",
     "vue-loader": "^16.1.0",
     "vue-tsc": "^0.0.15",
-    "vuex": "^3.6.0"
+    "vuex": "^4.0.2"
   }
 }
