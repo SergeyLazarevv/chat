@@ -5,7 +5,7 @@ services:
         image: nginx:latest
         volumes:
             - ./frontside/:/var/www/frontside/dist/
-            - ./backend/:/var/www/backend/
+            - ./backend/:/var/www/backend/dist/
            # - default.conf:/etc/nginx/conf.d/
         ports: 
             - 80:80

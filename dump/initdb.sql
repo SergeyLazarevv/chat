@@ -1,19 +1,21 @@
 USE dev;
 
 CREATE TABLE IF NOT EXISTS users( 
-  id int(11) NOT NULL AUTO_INCREMENT, 
-  mail varchar(30) NOT NULL, 
-  login varchar(8) NOT NULL, 
-  password varchar(10) NOT NULL, 
-  token varchar(30) NOT NULL, 
-  PRIMARY KEY (id)
-  );
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+  mail VARCHAR(30) NOT NULL, 
+  login VARCHAR(30) NOT NULL, 
+  password VARCHAR(30) NOT NULL, 
+  token VARCHAR(30) NOT NULL
+);
 
-CREATE TABLE IF NOT EXISTS users( 
-  id int(11) NOT NULL AUTO_INCREMENT, 
-  mail varchar(30) NOT NULL, 
-  login varchar(8) NOT NULL, 
-  password varchar(10) NOT NULL, 
-  token varchar(30) NOT NULL, 
-  PRIMARY KEY (id)
-  );
+CREATE TABLE IF NOT EXISTS chats( 
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+  FOREIGN KEY (users_id) REFERENCES users(id),
+  FOREIGN KEY (message_id) REFERENCES messages(id)
+);
+
+CREATE TABLE IF NOT EXISTS messages( 
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+  text TEXT(2000), 
+  image MEDIUMBLOB
+);
