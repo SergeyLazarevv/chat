@@ -49,8 +49,8 @@ import { reactive, onMounted, ref ,Ref} from 'vue';
 export default {
     setup() {
         onMounted(() => {
-            console.log('login',login)
-            this.$socket.emit('emit_method', 999);
+            //console.log('login',login)
+            //this.$socket.emit('emit_method', 999);
         })
 
 

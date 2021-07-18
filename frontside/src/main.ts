@@ -14,6 +14,7 @@ import Sidebar from 'primevue/sidebar';
 import Vuex from "vuex";
 import VueSocketIO from 'vue-socket.io'
 import store from './vuex/store'
+import { io } from'socket.io-client' 
 
 import "primevue/resources/themes/saga-blue/theme.css"       //theme
 import "primevue/resources/primevue.min.css"                //core css
@@ -33,14 +34,21 @@ app.component('Dropdown', Dropdown);
 app.component('Calendar', Calendar);
 app.component('Sidebar',Sidebar);
 
-app.use(new VueSocketIO({
-    debug: true,
-    connection: 'http://localhost:8080',
-    vuex: {
-      store,
-      actionPrefix: 'SOCKET_',
-      mutationPrefix: "SOCKET_"
-    },
-    //options: {} //Optional options
-  }))
+// app.use(new VueSocketIO({
+//     debug: false,
+//     connection: 'http://localhost:8080',
+//     vuex: {
+//       store,
+//       actionPrefix: 'SOCKET_',
+//       mutationPrefix: "SOCKET_"
+//     },
+//     //options: {} //Optional options
+//   }))
+
+
+ 
+const socket = io('http://localhost:8080', {})    
+app.config.globalProperties.$socket = socket    
+app.provide('socket', socket)
+
 app.mount('#app')

@@ -4,7 +4,7 @@ import { RouteRecordRaw, createWebHistory, createRouter } from "vue-router";
 const routes: Array<RouteRecordRaw> = [
     {
         path: "/main",
-        name: "adminPage",
+        name: "main",
         meta: {
             title: "Администрирование",
             label: "Администрирование"
@@ -26,7 +26,7 @@ const routes: Array<RouteRecordRaw> = [
         name: "registration",
         meta: {
             title: "Форма регистрации",
-            label: "Логин",
+            label: "Регистрация",
             //layout: "login"
         },
         component: () => import("./view/Registration.vue")
