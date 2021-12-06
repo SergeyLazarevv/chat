@@ -10,10 +10,12 @@
 </template>
 
 <script lang="ts">
+
 import { ref, inject, defineComponent, onMounted } from 'vue';
 import Login from './view/Login.vue'
 import Main from './view/Main.vue'
 import Registration from './view/Registration.vue'
+import { Socket } from'socket.io-client'
 
 export default defineComponent({
   name: 'App',
@@ -25,11 +27,15 @@ export default defineComponent({
 
   setup() {
     let count = ref(0)
-    const socket = inject('socket')
-    console.log(socket)
+    const socket: Socket = inject('socket')
+    let text = 'OLOLO'
 
+  // socket.emit("message", 'POPOPO');
+  // socket.on("message", (text) => {  
+  //   console.log('mess Grom Server', text)
+  // });
     onMounted(() => {
-     
+      console.log('main mount')
     })
   }
 })

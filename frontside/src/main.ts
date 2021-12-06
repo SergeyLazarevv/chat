@@ -19,7 +19,7 @@ import { io } from'socket.io-client'
 import "primevue/resources/themes/saga-blue/theme.css"       //theme
 import "primevue/resources/primevue.min.css"                //core css
 import "primeicons/primeicons.css"                          //icons
-
+console.log('1')
 const app = createApp(App)
 app.use(router)
 app.use(PrimeVue)
@@ -48,7 +48,10 @@ app.component('Sidebar',Sidebar);
 
  
 const socket = io('http://localhost:8080', {})    
-app.config.globalProperties.$socket = socket    
+console.log('9090', socket)
 app.provide('socket', socket)
+socket.on('message', (mess) => {
+    console.log('event for message', mess)
+})
 
 app.mount('#app')

@@ -44,7 +44,8 @@
 </template>
 
 <script lang="ts">
-import { reactive, onMounted, ref ,Ref} from 'vue';
+import { inject, onMounted, ref ,Ref} from 'vue';
+import { Socket } from'socket.io-client'
 
 export default {
     setup() {
@@ -52,8 +53,9 @@ export default {
             //console.log('login',login)
             //this.$socket.emit('emit_method', 999);
         })
-
-
+const socket: Socket = inject('socket')
+let text = 'hello'
+    socket.emit("message", text);
         const login: Ref<string> = ref('');
         const password: Ref<string> = ref('');
         const email: Ref<string> = ref('');

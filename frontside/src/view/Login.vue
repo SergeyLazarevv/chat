@@ -23,20 +23,28 @@
 </template>
 
 <script lang="ts">
-import { ref, Ref, onMounted } from 'vue';
-//import { useStore } from 'vuex'
+import { ref, Ref, inject } from 'vue';
+import { Socket } from'socket.io-client'
 
 export default {
     setup() {
-  //      const { commit, dispatch } = useStore()
-
+  
+        const socket: Socket = inject('socket')
        
         const login: Ref<string> = ref('')
         const password: Ref<string> = ref('')
 
-
         const formSubmit = () => {
+            console.log('send log pass')
+            const data = {
+                login: login,
+                password: password
+            }
             
+            socket.emit("login", data);
+            socket.on('login', (mess) => {
+                console.log('response after login', mess)
+            })
         }
 
         return { login, password, formSubmit }
