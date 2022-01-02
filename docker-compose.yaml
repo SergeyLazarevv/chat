@@ -18,6 +18,8 @@ services:
             MYSQL_PASSWORD: test
             MYSQL_DATABASE: dev
             MYSQL_ROOT_PASSWORD: test
+        expose:      
+            - "3306"
         ports:
             - 3336:3336
         volumes: 

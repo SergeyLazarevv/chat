@@ -1,9 +1,10 @@
 import { Request, Response } from 'express';
+import UserService from "../service/MysqlServise/UserService"
 
-export function addUser(request: Request, response: Response): void {
-    response.send("Добавление пользователя...")
+export async function addUser(request: Request, response: Response) {
+
 }
     
-export function getUsers(request: Request, response: Response): void {
+export async function getUsers(request: Request, response: Response) {
     response.send("Список пользователей...")
 }

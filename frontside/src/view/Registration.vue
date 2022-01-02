@@ -47,21 +47,35 @@
 import { inject, onMounted, ref ,Ref} from 'vue';
 import { Socket } from'socket.io-client'
 
+import axios, { AxiosRequestConfig, AxiosResponse} from 'axios';
+
 export default {
     setup() {
         onMounted(() => {
             //console.log('login',login)
             //this.$socket.emit('emit_method', 999);
         })
-const socket: Socket = inject('socket')
-let text = 'hello'
-    socket.emit("message", text);
+        const socket: Socket = inject('socket')
+        let text = 'hello'
+        socket.emit("message", text);
         const login: Ref<string> = ref('');
         const password: Ref<string> = ref('');
         const email: Ref<string> = ref('');
 
         const formSubmit = () => {
-            
+
+            let axiosConfig: AxiosRequestConfig = {
+                headers: {
+			        "Content-Type": "multipart/form-data charset=utf-8",
+                    "Access-Control-Allow-Origin": "*"
+                },
+                method: 'post',
+                url: 'http://localhost:8000/auth/registration'
+            }
+            console.log('SUBB')
+            axios(axiosConfig).then(response => {
+                console.log('axios response', response)
+            })
         }
 
         return {email, login, password, formSubmit}

@@ -1,10 +1,11 @@
 'use strict';
-import  express from 'express'
+import * as express from 'express'
 import { Express } from 'express'
 import userRouter from './routes/userRouter'
 import authRouter from './routes/authRouter'
 //const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 
 require("./service/sockets/index");
@@ -13,7 +14,9 @@ const port = 8000;
 const app : Express = express();
 
 
-
+app.use(cors({
+  origin: '*'
+}));
 app.use("/user", userRouter)
 app.use("/auth", authRouter)
 
