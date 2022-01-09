@@ -6,7 +6,7 @@
                 <form @submit.prevent="formSubmit" class="p-fluid">
                     <div class="p-field">
                         <div class="p-float-label">
-                            <InputText v-model="login" id="name" placeholder="Имя"/>
+                            <InputText v-model="login" id="login" placeholder="Имя"/>
                         </div>
                     </div>
                     <div class="p-field">
@@ -52,27 +52,32 @@ import axios, { AxiosRequestConfig, AxiosResponse} from 'axios';
 export default {
     setup() {
         onMounted(() => {
-            //console.log('login',login)
-            //this.$socket.emit('emit_method', 999);
+           
         })
         const socket: Socket = inject('socket')
         let text = 'hello'
         socket.emit("message", text);
-        const login: Ref<string> = ref('');
+        const login: Ref<string>= ref('');
         const password: Ref<string> = ref('');
         const email: Ref<string> = ref('');
 
         const formSubmit = () => {
 
+            const data = new FormData();
+            data.append('login', JSON.stringify(login.value))
+            data.append('password', JSON.stringify(password.value))
+            data.append('email', JSON.stringify(email.value))
+
             let axiosConfig: AxiosRequestConfig = {
                 headers: {
-			        "Content-Type": "multipart/form-data charset=utf-8",
+			        "Content-Type": "multipart/form-data",
                     "Access-Control-Allow-Origin": "*"
                 },
                 method: 'post',
-                url: 'http://localhost:8000/auth/registration'
+                url: 'http://localhost:8000/auth/registration',
+                data: data
             }
-            console.log('SUBB')
+            console.log('SUBB', axiosConfig)
             axios(axiosConfig).then(response => {
                 console.log('axios response', response)
             })

@@ -1,6 +1,7 @@
+//let join = require('path');
 module.exports = {
    "type": "mysql",
-   "host": "192.168.112.3",
+   "host": "192.168.112.2",
    "port": 3306,
    "username": "test",
    "password": "test",
@@ -9,6 +10,7 @@ module.exports = {
    "logging": false,
    "entities": [
       "src/entity/**/*.ts"
+      //join(__dirname, '**', '*.entity.{ts,js}')
    ],
    "migrations": [
       "src/migration/**/*.ts"

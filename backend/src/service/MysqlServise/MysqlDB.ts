@@ -5,10 +5,10 @@ export default abstract class MysqlDB {
 
     protected connection: Connection
 
-    async init(): Promise<void> {
+    async connectInit(): Promise<void> {
 
         await createConnection().then(async (connection: Connection) => {
-        
+            
             this.connection = connection
         }).catch(error => console.log('ORM ERROR', error));
     }
