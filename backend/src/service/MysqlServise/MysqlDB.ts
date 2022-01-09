@@ -5,11 +5,21 @@ export default abstract class MysqlDB {
 
     protected connection: Connection
 
-    async connectInit(): Promise<void> {
+    // constructor() {
+    //     this.connection = 
+    // }
 
-        await createConnection().then(async (connection: Connection) => {
+    async connectInit(): Promise<void> {
+        console.log('CONNECT', !!this.connection)
+        if(!this.connection) {
+            console.log('INN')
+            await createConnection().then(async (connection: Connection) => {
             
-            this.connection = connection
-        }).catch(error => console.log('ORM ERROR', error));
+                this.connection = connection
+            }).catch(error => {
+                console.log('ORM ERROR', error)
+                console.log('is commect', !!this.connection)
+            })
+        }
     }
 }

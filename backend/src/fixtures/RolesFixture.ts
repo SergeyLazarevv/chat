@@ -9,7 +9,7 @@ export class Fixtures extends MysqlDB {
 
     async upload() {
 
-        await this.connectInit()
+        if (!this.connection) await this.connectInit()
     
         const userRole = new Role()
         userRole.name = 'USER'  

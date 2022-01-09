@@ -54,9 +54,9 @@ export default {
         onMounted(() => {
            
         })
-        const socket: Socket = inject('socket')
-        let text = 'hello'
-        socket.emit("message", text);
+        // const socket: Socket = inject('socket')
+        // let text = 'hello'
+        // socket.emit("message", text);
         const login: Ref<string>= ref('');
         const password: Ref<string> = ref('');
         const email: Ref<string> = ref('');

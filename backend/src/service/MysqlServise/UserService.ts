@@ -1,6 +1,10 @@
 import MysqlDB from "./MysqlDB"
 import { User } from "../../entity/User";
-import { Connection, getRepository, Repository } from "typeorm";
+import { Connection, getConnection, Repository } from "typeorm";
+import { Role } from '../../entity/Role'
+import Authentification from '../../security/Authentication'
+import RoleService from './RoleService'
+var jwt = require('jsonwebtoken');
 
 export default class UserService extends MysqlDB {
 
@@ -16,28 +20,57 @@ export default class UserService extends MysqlDB {
     }
 
     async addUser(login: string, password: string, email: string): Promise<User> {
-        
-        await this.connectInit()
-        
+        console.log('init connect in userAdd', !!this.connection)
+        //await this.connectInit()
+        const connection = getConnection()
+        console.log('after init connect in userAdd', !!connection)
+        const RoleServise = new RoleService()
+        console.log('after create role class', !!connection)
         const user = new User();
         user.email = email  
         user.password = password
         user.login = login      
-        //console.log('CONNECT', this.connection)
-        await this.connection.manager.save(user)
+    
+        const baseRole = await RoleServise.getRole('USER')
+        console.log('base ROLE', baseRole)
+        user.role = baseRole
 
-        const UserRepository: Repository<User> = this.connection.getRepository(User)
+        console.log('use before save', user)
+        
+        await connection.manager.save(user)
 
-        let newUser = await UserRepository.findOne({'email': user.email });
-        console.log("newUser => ", newUser)
-        return newUser
+        const UserRepository: Repository<User> = connection.getRepository(User)
+        const newUser: User = await UserRepository.findOne({relations: ['role'], where: {'email': email}});
+        console.log('NEW USERR', newUser)
+        newUser.role.forEach(role => console.log('role name',role.name))
+
+        const payload = {
+            id: newUser.id, 
+            role: newUser.role.map(roles => roles.name)
+        }
+
+        console.log('PAYLOAD ', payload)
+
+        //let accessToken = await Authentification.generateAccessToken(payload)
+        ////TODO: check token
+        let accessToken
+        jwt.sign(payload, { algorithm: 'RS256' }, function(err, token) {
+            console.log('USER TOKEN', token);
+            accessToken = token
+        
+        });
+        ///
+
+        console.log("newUser token=> ", accessToken)
+        return accessToken
     }
 
     async getUser(email: string): Promise<User | undefined> {
 
         await this.connectInit()
 
-        const UserRepository: Repository<User> = this.connection.getRepository(User)
+        const connection = getConnection()
+        const UserRepository: Repository<User> = connection.getRepository(User)
         return await UserRepository.findOne({'email': email })
     }
 }

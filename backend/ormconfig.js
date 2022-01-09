@@ -8,6 +8,7 @@ module.exports = {
    "database": "dev",
    "synchronize": true,
    "logging": false,
+   "keepConnectionAlive": true,
    "entities": [
       "src/entity/**/*.ts"
       //join(__dirname, '**', '*.entity.{ts,js}')

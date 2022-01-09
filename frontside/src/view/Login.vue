@@ -29,7 +29,7 @@ import { Socket } from'socket.io-client'
 export default {
     setup() {
   
-        const socket: Socket = inject('socket')
+        //const socket: Socket = inject('socket')
        
         const login: Ref<string> = ref('')
         const password: Ref<string> = ref('')
@@ -41,10 +41,10 @@ export default {
                 password: password
             }
             
-            socket.emit("login", data);
-            socket.on('login', (mess) => {
-                console.log('response after login', mess)
-            })
+            // socket.emit("login", data);
+            // socket.on('login', (mess) => {
+            //     console.log('response after login', mess)
+            // })
         }
 
         return { login, password, formSubmit }

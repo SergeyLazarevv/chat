@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+var jwt = require('jsonwebtoken');
 
 // interface PersistedPassword {
 //     salt: string;
@@ -18,5 +19,16 @@ export default class Authentification {
     public static async generateHashPassword(password: string): Promise<string> {
 
         return await bcrypt.hash(password, 3).then((hash) => hash);
+    }
+
+    public static async generateAccessToken(payload: any): Promise<any> {
+
+        let accessToken
+        jwt.sign(payload, { algorithm: 'RS256' }, function(err, token) {
+            console.log('USER TOKEN', token);
+            accessToken = token
+        });
+
+        return accessToken
     }
 }
