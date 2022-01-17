@@ -4,7 +4,9 @@ import { Connection, getConnection, Repository } from "typeorm";
 import { Role } from '../../entity/Role'
 import Authentification from '../../security/Authentication'
 import RoleService from './RoleService'
+import { request } from "express";
 var jwt = require('jsonwebtoken');
+let fs = require('fs')
 
 export default class UserService extends MysqlDB {
 
@@ -41,25 +43,23 @@ export default class UserService extends MysqlDB {
 
         const UserRepository: Repository<User> = connection.getRepository(User)
         const newUser: User = await UserRepository.findOne({relations: ['role'], where: {'email': email}});
-        console.log('NEW USERR', newUser)
-        newUser.role.forEach(role => console.log('role name',role.name))
+        //console.log('NEW USERR', newUser)
+        //newUser.role.forEach(role => console.log('role name',role.name))
 
-        const payload = {
+        let payload = {
             id: newUser.id, 
             role: newUser.role.map(roles => roles.name)
         }
+        
+        const key = fs.readFileSync(__dirname+'/../../../jwtRS256.key')
 
-        console.log('PAYLOAD ', payload)
+        //const payloadJSON = JSON.stringify(payload)
+
+        //console.log('PAYLOAD ', payload)
 
         //let accessToken = await Authentification.generateAccessToken(payload)
         ////TODO: check token
-        let accessToken
-        jwt.sign(payload, { algorithm: 'RS256' }, function(err, token) {
-            console.log('USER TOKEN', token);
-            accessToken = token
-        
-        });
-        ///
+        let accessToken = jwt.sign(payload, key);
 
         console.log("newUser token=> ", accessToken)
         return accessToken
