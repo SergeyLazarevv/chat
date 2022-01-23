@@ -19,6 +19,7 @@
                 </form>
             </div>
         </div>
+         <router-link to="/registration">Регистрация</router-link>
     </div>
 </template>
 

@@ -1,20 +1,14 @@
 const bcrypt = require('bcrypt');
-var jwt = require('jsonwebtoken');
-
-// interface PersistedPassword {
-//     salt: string;
-//     hash: string;
-//     iterations: number;
-// }
+const jwt = require('jsonwebtoken');
+const fs = require('fs')
 
 export default class Authentification {
 
-    // protected tokenKey = '1a2b-3c4d-5e6f-7g8h'
-    // protected static PASSWORD_LENGTH = 256;
-    // protected static SALT_LENGTH = 64;
-    // protected static ITERATIONS = 10000;
-    // protected static DIGEST = 'sha256';
-    // protected static BYTE_TO_STRING_ENCODING = 'hex';
+    protected accessList = {
+        'auth': ["USER", "ADMIN", "MANAGER"],
+        'user': ["USER", "ADMIN", "MANAGER"],
+        'administration': ["ADMIN", "MANAGER"]
+    }
 
     public static async generateHashPassword(password: string): Promise<string> {
 
@@ -23,12 +17,24 @@ export default class Authentification {
 
     public static async generateAccessToken(payload: any): Promise<any> {
 
-        let accessToken
-        jwt.sign(payload, { algorithm: 'RS256' }, function(err, token) {
-            console.log('USER TOKEN', token);
-            accessToken = token
-        });
+        const key = fs.readFileSync(__dirname+'/../../jwtRS256.key')
+        return jwt.sign(payload, key)
+    }
 
-        return accessToken
+    public static async checkAuth(request, response, next) {
+
+        try {
+
+            const key = fs.readFileSync(__dirname+'/../../jwtRS256.key')
+            const token = request.headers['authorization'].substring(7)
+            const decodeToken = jwt.verify(token, key)
+
+            console.log('tokennn', token)
+            console.log('decode', decodeToken)
+            console.log('RRR', request.originalUrl)
+            next()
+        } catch(error) {
+            console.log('auth error', error)
+        }
     }
 }

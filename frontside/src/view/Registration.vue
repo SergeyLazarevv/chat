@@ -38,6 +38,7 @@
                     </div>
                     <Button type="submit" label="Регистрация" class="p-mt-2" />
                 </form>
+                <router-link to="/login">Вход</router-link> 
             </div>
         </div>
     </div>
@@ -46,7 +47,8 @@
 <script lang="ts">
 import { inject, onMounted, ref ,Ref} from 'vue';
 import { Socket } from'socket.io-client'
-
+import Request from '../service/Request'
+import router from '../router'
 import axios, { AxiosRequestConfig, AxiosResponse} from 'axios';
 
 export default {
@@ -71,16 +73,27 @@ export default {
             let axiosConfig: AxiosRequestConfig = {
                 headers: {
 			        "Content-Type": "multipart/form-data",
-                    "Access-Control-Allow-Origin": "*"
+                    "Access-Control-Allow-Origin": "*",
+                    "Authorization": "Bearer " + localStorage.getItem('token')
                 },
                 method: 'post',
                 url: 'http://localhost:8000/auth/registration',
                 data: data
             }
-            console.log('SUBB', axiosConfig)
-            axios(axiosConfig).then(response => {
-                console.log('axios response', response)
+            console.log('configa', axiosConfig)
+            
+            Request.send(axiosConfig).then(response => {
+                console.log('IN VIEW', response)
+                localStorage.setItem('token', response.data)
+                router.push('main')
             })
+            // axios(axiosConfig).then(response => {
+
+            //     console.log('axios response', response)
+            //     if(response.data) {
+            //         localStorage.setItem('token', response.data);
+            //     }
+            // })
         }
 
         return {email, login, password, formSubmit}

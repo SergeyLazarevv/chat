@@ -1,25 +1,25 @@
 import "reflect-metadata";
-import {createConnection, Connection} from "typeorm";
+import {createConnection, getConnection, Connection, getConnectionManager} from "typeorm";
 
 export default abstract class MysqlDB {
 
-    protected connection: Connection
-
-    // constructor() {
-    //     this.connection = 
-    // }
-
-    async connectInit(): Promise<void> {
-        console.log('CONNECT', !!this.connection)
-        if(!this.connection) {
-            console.log('INN')
+    async getConnection(): Promise<Connection> {
+    
+        const manager = getConnectionManager()
+        let newConnection: Connection | undefined
+        
+        if(!manager.has('default')) {
+            console.log('cteate new connection')
             await createConnection().then(async (connection: Connection) => {
-            
-                this.connection = connection
+                newConnection = connection
             }).catch(error => {
                 console.log('ORM ERROR', error)
-                console.log('is commect', !!this.connection)
             })
+        } else {
+            console.log('connection exist')
+            return getConnection()
         }
+
+        return newConnection
     }
 }

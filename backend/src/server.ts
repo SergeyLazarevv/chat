@@ -6,8 +6,8 @@ import authRouter from './routes/authRouter'
 //const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-var multer  = require('multer');
-
+const multer  = require('multer');
+import Authentification from './security/Authentication';
 
 //require("./service/sockets/index");
 
@@ -20,6 +20,8 @@ app.use(express.json())
 app.use(cors({
   origin: '*'
 }));
+
+app.use('/', Authentification.checkAuth)
 app.use("/user", upload.array(), userRouter)
 app.use("/auth", upload.array(), authRouter)
 

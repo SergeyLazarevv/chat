@@ -1,5 +1,9 @@
 <template>
-  <h1>Main</h1>
+  <div>
+    <!-- <Menubar :model="items" /> -->
+    <h1>Main</h1>
+    <router-link to="/login">Вход</router-link> 
+  </div>
 </template>
 
 <script lang="ts">

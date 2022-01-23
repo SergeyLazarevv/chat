@@ -20,7 +20,7 @@ export async function registration(request: Request, response: Response) {
     if (checkUserExist) return response.json('this email already used, please log in')
 
     const hashPassword: string = await Authentification.generateHashPassword(password)
-    const newUser = await userService.addUser(login, hashPassword, email)
+    const accessToken: string = await userService.addUser(login, hashPassword, email)
     
-    response.send(newUser)
+    response.send(accessToken)
 }

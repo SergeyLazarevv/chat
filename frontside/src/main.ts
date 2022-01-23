@@ -11,6 +11,7 @@ import Password from 'primevue/password';
 import Divider from 'primevue/divider';
 import Dialog from 'primevue/dialog';
 import Sidebar from 'primevue/sidebar';
+import Menubar from 'primevue/menubar';
 import Vuex from "vuex";
 import VueSocketIO from 'vue-socket.io'
 import store from './vuex/store'
@@ -33,6 +34,8 @@ app.component('Checkbox', Checkbox);
 app.component('Dropdown', Dropdown);
 app.component('Calendar', Calendar);
 app.component('Sidebar',Sidebar);
+app.component('Menubar',Sidebar);
+
 
 // app.use(new VueSocketIO({
 //     debug: false,

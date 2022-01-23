@@ -1,23 +1,24 @@
 import { Role } from '../entity/Role'
-import MysqlDB from '../service/MysqlServise/MysqlDB';
+import { Repository, getConnection } from "typeorm"
+//import MysqlDB from '../service/MysqlServise/MysqlDB.ts.old';
 
-export class Fixtures extends MysqlDB {
+export class Fixtures {
 
     constructor() {
-        super()
+        //super()
     }
 
     async upload() {
 
-        if (!this.connection) await this.connectInit()
-    
+        //if (!this.connection) await this.connectInit()
+        const connection = getConnection()
         const userRole = new Role()
         userRole.name = 'USER'  
-        await this.connection.manager.save(userRole)
+        await connection.manager.save(userRole)
 
         const adminRole = new Role()
         adminRole.name = 'ADMIN'
-        await this.connection.manager.save(adminRole)
+        await connection.manager.save(adminRole)
     }
 }
 

@@ -1,12 +1,11 @@
-import MysqlDB from "./MysqlDB"
+//import MysqlDB from "./MysqlDB.ts.old"
 import { User } from "../../entity/User";
-import { Connection, getConnection, Repository } from "typeorm";
+import { Connection, Repository } from "typeorm";
 import { Role } from '../../entity/Role'
 import Authentification from '../../security/Authentication'
 import RoleService from './RoleService'
 import { request } from "express";
-var jwt = require('jsonwebtoken');
-let fs = require('fs')
+import MysqlDB from "./MysqlDB";
 
 export default class UserService extends MysqlDB {
 
@@ -21,10 +20,10 @@ export default class UserService extends MysqlDB {
         //.manager.find(User)
     }
 
-    async addUser(login: string, password: string, email: string): Promise<User> {
-        console.log('init connect in userAdd', !!this.connection)
+    async addUser(login: string, password: string, email: string): Promise<string> {
+        //console.log('init connect in userAdd', !!this.connection)
         //await this.connectInit()
-        const connection = getConnection()
+        const connection = await this.getConnection()
         console.log('after init connect in userAdd', !!connection)
         const RoleServise = new RoleService()
         console.log('after create role class', !!connection)
@@ -46,20 +45,12 @@ export default class UserService extends MysqlDB {
         //console.log('NEW USERR', newUser)
         //newUser.role.forEach(role => console.log('role name',role.name))
 
-        let payload = {
+        const payload = {
             id: newUser.id, 
             role: newUser.role.map(roles => roles.name)
         }
         
-        const key = fs.readFileSync(__dirname+'/../../../jwtRS256.key')
-
-        //const payloadJSON = JSON.stringify(payload)
-
-        //console.log('PAYLOAD ', payload)
-
-        //let accessToken = await Authentification.generateAccessToken(payload)
-        ////TODO: check token
-        let accessToken = jwt.sign(payload, key);
+        const accessToken = Authentification.generateAccessToken(payload)
 
         console.log("newUser token=> ", accessToken)
         return accessToken
@@ -67,10 +58,12 @@ export default class UserService extends MysqlDB {
 
     async getUser(email: string): Promise<User | undefined> {
 
-        await this.connectInit()
+        //await this.connectInit()
 
-        const connection = getConnection()
+        const connection = await this.getConnection()
+        console.log('CONN get user', !!connection)
         const UserRepository: Repository<User> = connection.getRepository(User)
+        console.log('1111')
         return await UserRepository.findOne({'email': email })
     }
 }

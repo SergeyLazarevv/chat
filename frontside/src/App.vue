@@ -1,11 +1,12 @@
 <template>
   <main>
     <router-view/>
-    <div id="nav">
+    
+    <!-- <div id="nav">
       <router-link to="/login">login22</router-link> |
       <router-link to="/main">main33</router-link> |
       <router-link to="/registration">регистрация</router-link>
-    </div>
+    </div> -->
   </main>
 </template>
 
