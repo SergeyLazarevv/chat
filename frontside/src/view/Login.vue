@@ -24,13 +24,14 @@
 </template>
 
 <script lang="ts">
-import { ref, Ref, inject } from 'vue';
+import { ref, Ref, inject, onMounted } from 'vue';
 import { Socket } from'socket.io-client'
 
 export default {
     setup() {
   
         //const socket: Socket = inject('socket')
+        onMounted(() => localStorage.removeItem('token'))
        
         const login: Ref<string> = ref('')
         const password: Ref<string> = ref('')

@@ -9,7 +9,7 @@ const cors = require('cors');
 const multer  = require('multer');
 import Authentification from './security/Authentication';
 
-//require("./service/sockets/index");
+require("./service/Sockets/index");
 
 const port = 8000;
 const app : Express = express();

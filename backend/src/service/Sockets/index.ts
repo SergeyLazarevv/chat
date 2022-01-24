@@ -1,7 +1,6 @@
 //import { v4 as uuidv4 } from 'uuid';
 
 const http = require('http');
-
 const server = http.createServer();
 
 const io = require('socket.io')(server, {
@@ -13,9 +12,17 @@ const io = require('socket.io')(server, {
   }
 });
 
+const users = {};
+
 io.on('connection', (socket: any) => {
-  console.log('socket in', socket.id)//socket)
-  //console.log('users count ', socket.sockets())
+
+  socket.on('setOnline', (token: any) => { 
+    console.log('sets online ', token)
+    users[socket.id] = token
+    console.log(users)
+    console.log(Object.keys(users).length)
+    io.sockets.emit('getOnline', Object.keys(users).length)
+   });
 
   socket.on('event', (data: any) => { 
     console.log('data event', data)
@@ -39,6 +46,9 @@ io.on('connection', (socket: any) => {
    });
 
   socket.on('disconnect', (err: any) => { 
+    console.log('disconnetc', socket.id)
+    delete users[socket.id];
+    io.sockets.emit('getOnline', Object.keys(users).length)
     console.log('diss', err)
    });
    socket.broadcast.emit('message', 'Only for you');

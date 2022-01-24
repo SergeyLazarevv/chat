@@ -53,9 +53,8 @@ import axios, { AxiosRequestConfig, AxiosResponse} from 'axios';
 
 export default {
     setup() {
-        onMounted(() => {
-           
-        })
+      
+        onMounted(() => localStorage.removeItem('token'))
         // const socket: Socket = inject('socket')
         // let text = 'hello'
         // socket.emit("message", text);
@@ -87,13 +86,6 @@ export default {
                 localStorage.setItem('token', response.data)
                 router.push('main')
             })
-            // axios(axiosConfig).then(response => {
-
-            //     console.log('axios response', response)
-            //     if(response.data) {
-            //         localStorage.setItem('token', response.data);
-            //     }
-            // })
         }
 
         return {email, login, password, formSubmit}

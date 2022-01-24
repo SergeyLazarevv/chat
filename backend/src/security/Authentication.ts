@@ -26,13 +26,23 @@ export default class Authentification {
         try {
 
             const key = fs.readFileSync(__dirname+'/../../jwtRS256.key')
-            const token = request.headers['authorization'].substring(7)
-            const decodeToken = jwt.verify(token, key)
-
-            console.log('tokennn', token)
-            console.log('decode', decodeToken)
-            console.log('RRR', request.originalUrl)
-            next()
+            const authHeader = request.headers['authorization']
+            const token = authHeader.substring(7)
+            //TODO: set pathList
+            if (token == 'null' && (request.originalUrl != '/auth/registration' && request.originalUrl != '/auth/login')) {
+                console.log('BAD_AUTH')
+                return 'BAD_AUTH'
+                
+            } else if(token == 'null' && (request.originalUrl == '/auth/registration' || request.originalUrl == '/auth/login')) {
+               next()
+            } else {
+                const decodeToken = jwt.verify(token, key)
+                console.log('tokennn', token)
+                console.log('decode', decodeToken)
+                console.log('RRR', request.originalUrl)
+                next()
+            }
+            
         } catch(error) {
             console.log('auth error', error)
         }

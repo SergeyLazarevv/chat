@@ -28,13 +28,7 @@ export default defineComponent({
 
   setup() {
     let count = ref(0)
-    const socket: Socket = inject('socket')
-    let text = 'OLOLO'
-
-  // socket.emit("message", 'POPOPO');
-  // socket.on("message", (text) => {  
-  //   console.log('mess Grom Server', text)
-  // });
+   
     onMounted(() => {
       console.log('main mount')
     })

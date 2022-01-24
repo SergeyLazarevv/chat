@@ -20,7 +20,7 @@ import { io } from'socket.io-client'
 import "primevue/resources/themes/saga-blue/theme.css"       //theme
 import "primevue/resources/primevue.min.css"                //core css
 import "primeicons/primeicons.css"                          //icons
-console.log('1')
+
 const app = createApp(App)
 app.use(router)
 app.use(PrimeVue)
@@ -35,26 +35,14 @@ app.component('Dropdown', Dropdown);
 app.component('Calendar', Calendar);
 app.component('Sidebar',Sidebar);
 app.component('Menubar',Sidebar);
-
-
-// app.use(new VueSocketIO({
-//     debug: false,
-//     connection: 'http://localhost:8080',
-//     vuex: {
-//       store,
-//       actionPrefix: 'SOCKET_',
-//       mutationPrefix: "SOCKET_"
-//     },
-//     //options: {} //Optional options
-//   }))
-
-
  
 const socket = io('http://localhost:8080', {})    
 console.log('9090', socket)
 app.provide('socket', socket)
-socket.on('message', (mess) => {
-    console.log('event for message', mess)
-})
 
 app.mount('#app')
+
+if(!localStorage.getItem('token')) {
+    console.log('to login ', localStorage.getItem('token'))
+    router.push('login')
+}
