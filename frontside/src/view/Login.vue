@@ -1,5 +1,5 @@
 <template>
-    <div class="login-form p-d-flex" style='width:50%;margin:0 auto;'>
+    <div class="login-form p-d-flex" style='width:50%;max-width:400px;margin:0 auto;'>
         <div class="p-d-flex p-jc-center">
             <div class="card">
                 <h5 class="p-text-center">Вход</h5>
@@ -26,6 +26,9 @@
 <script lang="ts">
 import { ref, Ref, inject, onMounted } from 'vue';
 import { Socket } from'socket.io-client'
+import axios, { AxiosRequestConfig, AxiosResponse} from 'axios';
+import router from '../router'
+import Request from '../service/Request'
 
 export default {
     setup() {
@@ -37,16 +40,32 @@ export default {
         const password: Ref<string> = ref('')
 
         const formSubmit = () => {
-            console.log('send log pass')
-            const data = {
-                login: login,
-                password: password
+
+            const data = new FormData();
+            data.append('login', JSON.stringify(login.value))
+            data.append('password', JSON.stringify(password.value))
+
+            let axiosConfig: AxiosRequestConfig = {
+                headers: {
+			        "Content-Type": "multipart/form-data",
+                    "Access-Control-Allow-Origin": "*"
+                },
+                method: 'post',
+                url: 'http://localhost:8000/auth/login',
+                data: data
             }
+            console.log('configa login', axiosConfig)
             
-            // socket.emit("login", data);
-            // socket.on('login', (mess) => {
-            //     console.log('response after login', mess)
-            // })
+            Request.send(axiosConfig).then(response => {
+                if(response.data != "USER_NOT_FOUND") {
+
+                    console.log('IN VIEW', response)
+                    localStorage.setItem('token', response.data)
+                    router.push('main')
+                } else {
+                    alert('Пользователь не найден')
+                }
+            })
         }
 
         return { login, password, formSubmit }

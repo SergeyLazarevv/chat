@@ -1,5 +1,5 @@
 <template>
-    <div class="login-form p-d-flex" style='width:50%;margin:0 auto;'>
+    <div class="login-form p-d-flex" style='width:50%;max-width:400px;margin:0 auto;'>
         <div class="p-d-flex p-jc-center">
             <div class="card">
                 <h5 class="p-text-center">Регистрация</h5>
@@ -55,9 +55,7 @@ export default {
     setup() {
       
         onMounted(() => localStorage.removeItem('token'))
-        // const socket: Socket = inject('socket')
-        // let text = 'hello'
-        // socket.emit("message", text);
+        
         const login: Ref<string>= ref('');
         const password: Ref<string> = ref('');
         const email: Ref<string> = ref('');
@@ -72,19 +70,22 @@ export default {
             let axiosConfig: AxiosRequestConfig = {
                 headers: {
 			        "Content-Type": "multipart/form-data",
-                    "Access-Control-Allow-Origin": "*",
-                    "Authorization": "Bearer " + localStorage.getItem('token')
+                    "Access-Control-Allow-Origin": "*"
                 },
                 method: 'post',
                 url: 'http://localhost:8000/auth/registration',
                 data: data
             }
-            console.log('configa', axiosConfig)
             
             Request.send(axiosConfig).then(response => {
-                console.log('IN VIEW', response)
-                localStorage.setItem('token', response.data)
-                router.push('main')
+                if(response.data != 'USER_LOGIN_EXIST') {
+
+                    console.log('IN VIEW', response)
+                    localStorage.setItem('token', response.data)
+                    router.push('main')
+                } else {
+                    alert('user already exist')
+                }
             })
         }
 

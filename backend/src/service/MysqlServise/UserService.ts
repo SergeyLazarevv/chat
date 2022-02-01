@@ -9,8 +9,6 @@ import MysqlDB from "./MysqlDB";
 
 export default class UserService extends MysqlDB {
 
-    //private readonly userEntity: User
-
     constructor() {
         super()
     }
@@ -21,19 +19,16 @@ export default class UserService extends MysqlDB {
     }
 
     async addUser(login: string, password: string, email: string): Promise<string> {
-        //console.log('init connect in userAdd', !!this.connection)
-        //await this.connectInit()
+      
         const connection = await this.getConnection()
-        console.log('after init connect in userAdd', !!connection)
         const RoleServise = new RoleService()
-        console.log('after create role class', !!connection)
+    
         const user = new User();
         user.email = email  
         user.password = password
         user.login = login      
     
         const baseRole = await RoleServise.getRole('USER')
-        console.log('base ROLE', baseRole)
         user.role = baseRole
 
         console.log('use before save', user)
@@ -41,9 +36,7 @@ export default class UserService extends MysqlDB {
         await connection.manager.save(user)
 
         const UserRepository: Repository<User> = connection.getRepository(User)
-        const newUser: User = await UserRepository.findOne({relations: ['role'], where: {'email': email}});
-        //console.log('NEW USERR', newUser)
-        //newUser.role.forEach(role => console.log('role name',role.name))
+        const newUser: User = await UserRepository.findOne({relations: ['role'], where: {'email': email}})
 
         const payload = {
             id: newUser.id, 
@@ -51,19 +44,14 @@ export default class UserService extends MysqlDB {
         }
         
         const accessToken = Authentification.generateAccessToken(payload)
-
         console.log("newUser token=> ", accessToken)
         return accessToken
     }
 
-    async getUser(email: string): Promise<User | undefined> {
-
-        //await this.connectInit()
+    async getUserByMail(email: string): Promise<User | undefined> {
 
         const connection = await this.getConnection()
-        console.log('CONN get user', !!connection)
         const UserRepository: Repository<User> = connection.getRepository(User)
-        console.log('1111')
         return await UserRepository.findOne({'email': email })
     }
 }

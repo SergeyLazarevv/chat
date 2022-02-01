@@ -1,7 +1,7 @@
 //let join = require('path');
 module.exports = {
    "type": "mysql",
-   "host": "192.168.112.3",
+   "host": "192.168.114.2",
    "port": 3306,
    "username": "test",
    "password": "test",
