@@ -8,7 +8,7 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
             title: "Администрирование",
             label: "Администрирование"
-    },
+        },
         component: () => import("./view/Main.vue")
     },
     {
@@ -30,6 +30,26 @@ const routes: Array<RouteRecordRaw> = [
             //layout: "login"
         },
         component: () => import("./view/Registration.vue")
+    },
+    {
+        path: "/users",
+        name: "users",
+        meta: {
+            title: "Пользователи",
+            label: "Пользователи",
+            //layout: "login"
+        },
+        component: () => import("./view/Users.vue")
+    },
+    {
+        path: "/messages",
+        name: "messages",
+        meta: {
+            title: "Сообщения",
+            label: "Сообщения",
+            //layout: "login"
+        },
+        component: () => import("./view/Messages.vue")
     }
 ]
 

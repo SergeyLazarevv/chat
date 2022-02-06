@@ -1,38 +1,39 @@
 <template>
-  <div>
-    <!-- <Menubar :model="items" /> -->
-    <h1>Main</h1>
-    <div> Online: {{ onlineCount }}</div>
-    <router-link to="/login">Вход</router-link> 
-  </div>
+    <!-- <Header /> -->
+    <div class="grid grid-nogutter">
+      <div class="col-fixed" style="width:100px">
+        <AsideMenu />
+      </div>
+      <div class="col">
+
+        <h1>Main</h1>
+         <router-link to="/Users">Users</router-link> 
+         <router-link to="/Messages">Messages</router-link> 
+      </div>
+    </div>
+    <!-- <Sidebar v-model="visibleLeft" :baseZIndex="1000">
+            <h3>Left Sidebar</h3>
+    </Sidebar> -->
 </template>
 
 <script lang="ts">
 import { ref, Ref, inject, onMounted, defineComponent } from 'vue'
+import  Header from '../components/header/Header.vue'
+import AsideMenu from '../components/menu/AsideMenu.vue'
 import { Socket } from'socket.io-client'
 
 export default defineComponent({
-  name: 'Login',
+  name: 'Main',
   components: {
-    
+    Header,
+    AsideMenu
   },
-  setup() {
-     
-    let onlineCount: Ref<number> = ref(0)
-
-    const socket: Socket = inject('socket')
-    socket.emit("setOnline", localStorage.getItem('token'))
-    socket.on("getOnline", (online) => {  
-      console.log('online Grom Server', online)
-      onlineCount.value = online
-    })
-
-
-    return { onlineCount }
-  }
+  setup() {}
 })
 </script>
 
 <style>
-
+.grid {
+  width: 100%;
+}
 </style>

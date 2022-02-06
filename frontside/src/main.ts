@@ -12,6 +12,9 @@ import Divider from 'primevue/divider';
 import Dialog from 'primevue/dialog';
 import Sidebar from 'primevue/sidebar';
 import Menubar from 'primevue/menubar';
+import Avatar from 'primevue/avatar';
+import AvatarGroup from 'primevue/avatargroup';
+
 import Vuex from "vuex";
 import VueSocketIO from 'vue-socket.io'
 import store from './vuex/store'
@@ -20,6 +23,7 @@ import { io } from'socket.io-client'
 import "primevue/resources/themes/saga-blue/theme.css"       //theme
 import "primevue/resources/primevue.min.css"                //core css
 import "primeicons/primeicons.css"                          //icons
+import "/node_modules/primeflex/primeflex.css"              //primevue flex classes
 
 const app = createApp(App)
 app.use(router)
@@ -34,7 +38,9 @@ app.component('Checkbox', Checkbox);
 app.component('Dropdown', Dropdown);
 app.component('Calendar', Calendar);
 app.component('Sidebar',Sidebar);
-app.component('Menubar',Sidebar);
+app.component('Menubar', Menubar);
+app.component('Avatar',Avatar);
+app.component('AvatarGroup', AvatarGroup);
  
 const socket = io('http://localhost:8080', {})    
 console.log('9090', socket)
@@ -45,4 +51,8 @@ app.mount('#app')
 if(!localStorage.getItem('token')) {
     console.log('to login ', localStorage.getItem('token'))
     router.push('login')
+    console.log('to login')
+} else {
+    console.log('to main')
+    router.push('main')
 }

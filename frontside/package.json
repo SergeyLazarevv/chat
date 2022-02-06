@@ -11,6 +11,7 @@
     "cookie-parser": "^1.4.6",
     "esbuild": "^0.7.0",
     "express-handlebars": "^6.0.2",
+    "primeflex": "^3.1.2",
     "primeicons": "^4.1.0",
     "primevue": "^3.4.0",
     "socket.io-client": "^4.1.2",

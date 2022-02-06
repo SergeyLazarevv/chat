@@ -1,41 +1,24 @@
 <template>
-  <main>
-    <router-view/>
-    
-    <!-- <div id="nav">
-      <router-link to="/login">login22</router-link> |
-      <router-link to="/main">main33</router-link> |
-      <router-link to="/registration">регистрация</router-link>
-    </div> -->
-  </main>
+      <router-view/>
 </template>
 
 <script lang="ts">
 
-import { ref, inject, defineComponent, onMounted } from 'vue';
-import Login from './view/Login.vue'
-import Main from './view/Main.vue'
-import Registration from './view/Registration.vue'
-import { Socket } from'socket.io-client'
+import { defineComponent, onMounted } from 'vue';
 
 export default defineComponent({
   name: 'App',
-  components: {
-    Login,
-    Main,
-    Registration
-  },
-
   setup() {
-    let count = ref(0)
-   
     onMounted(() => {
-      console.log('main mount')
+      console.log('app mount')
     })
   }
 })
 </script>
 
 <style>
-
+* {
+  padding: 0;
+  margin: 0;
+}
 </style>
