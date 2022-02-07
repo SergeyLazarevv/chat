@@ -32,6 +32,7 @@ import Main from "./templates/Main.vue"
 const app = createApp(App)
 app.use(router)
 app.use(PrimeVue)
+app.use(store)
 
 app.component('login', Login);
 app.component('Registration', Registration);

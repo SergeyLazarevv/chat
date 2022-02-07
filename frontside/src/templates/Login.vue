@@ -1,6 +1,5 @@
 <template>
     <div class="login-form p-d-flex" style='width:50%;max-width:400px;margin:0 auto;'>
-        <router-view/>
         <div class="p-d-flex p-jc-center">
             <div class="card">
                 <h5 class="p-text-center">Вход</h5>
@@ -20,7 +19,7 @@
                 </form>
             </div>
         </div>
-         <router-link to="/registration">Регистрация</router-link>
+         <!-- <router-link to="/registration">Регистрация</router-link> -->
     </div>
 </template>
 
@@ -30,15 +29,17 @@ import { Socket } from'socket.io-client'
 import axios, { AxiosRequestConfig, AxiosResponse} from 'axios';
 import router from '../router'
 import Request from '../service/Request'
+import { useStore } from "vuex";
 
 export default {
     setup() {
   
         //const socket: Socket = inject('socket')
         onMounted(() => localStorage.removeItem('token'))
-       
+       console.log('ROUTER ', router)
         const login: Ref<string> = ref('')
         const password: Ref<string> = ref('')
+        const store = useStore();
 
         const formSubmit = () => {
 
@@ -62,6 +63,7 @@ export default {
 
                     console.log('IN VIEW', response)
                     localStorage.setItem('token', response.data)
+                    store.dispatch('chgTemplate', 'main')
                     router.push('profile')
                 } else {
                     alert('Пользователь не найден')

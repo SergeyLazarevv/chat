@@ -1,56 +1,33 @@
 <template>
-  <component :is="computedLayout">
+  <component :is="store.getters.getTemplate">
   </component>
 </template>
 
 <script lang="ts">
 
-import { defineComponent, onMounted, computed, watchEffect } from 'vue';
+import { defineComponent, onMounted, onBeforeMount, computed, watchEffect, ref } from 'vue';
 import router from './router'
+import { useStore } from "vuex";
 
-// router.beforeEach((to, from, next) => {
-//     //let token = cookie.methods.getCookie("token");
-//     console.log('TO ', to)
-//    // if(typeof to.meta != 'undefined' && typeof to.meta.title !='undefined'){
-//         //document.title = to.meta.title;
-//    // }
-//     // if(to.name != 'login' && !token){
-//     //     next('/login');
-//     // }
-//    // next();
-// });
 console.log('token ', localStorage.getItem('token'))
-const defaultLayout = 'main';
-let layout = defaultLayout;
-
-if(!localStorage.getItem('token')) {
-    console.log('to login ', localStorage.getItem('token'))
-    layout = 'login'
-    // router.push('login')
-} else {
-    console.log('to main log ')
-    // router.push('main')
-}
-
 
 export default defineComponent({
   name: 'App',
-  components: {
-  
-  },
+  components: {},
   setup() {
-    onMounted(() => {
-      console.log('app mount', router)
+
+    const store = useStore();
+
+    onBeforeMount(() => {
+
+      if(!localStorage.getItem('token')) {
+        router.push('/')
+      }
     })
 
-  
-    let computedLayout = computed(() => layout).value
-    console.log('computedLayout ', computedLayout)
-    watchEffect(() => {
-      console.log('COMP LAYOUT', computedLayout)
-    })
+    onMounted(() => {console.log('app mount ', store.getters.getTemplate)})
    
-    return { computedLayout }
+    return { store }
   }
 
 

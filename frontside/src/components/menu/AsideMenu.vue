@@ -15,7 +15,9 @@
 </template>
 
 <script>
-import { ref, inject, defineComponent, onMounted } from 'vue';
+import { defineComponent, onMounted } from 'vue';
+import { useStore } from "vuex"
+import router from '../../router'
 	
     export default defineComponent({
         name: 'AsideMenu',
@@ -24,10 +26,13 @@ import { ref, inject, defineComponent, onMounted } from 'vue';
         },
 
         setup() {
+
+			const store = useStore();
             
 			let logout = () => {
 				localStorage.removeItem('token')
-				router.push('login')
+				store.dispatch('chgTemplate', 'login')
+				router.push('/')
 			}
 
 			return { logout }
