@@ -25,9 +25,17 @@ import "primevue/resources/primevue.min.css"                //core css
 import "primeicons/primeicons.css"                          //icons
 import "/node_modules/primeflex/primeflex.css"              //primevue flex classes
 
+import Login from "./templates/Login.vue"
+import Registration from "./templates/Registration.vue"
+import Main from "./templates/Main.vue"
+
 const app = createApp(App)
 app.use(router)
 app.use(PrimeVue)
+
+app.component('login', Login);
+app.component('Registration', Registration);
+app.component('main', Main);
 
 app.component('Dialog', Dialog);
 app.component('Divider', Divider);
@@ -48,11 +56,11 @@ app.provide('socket', socket)
 
 app.mount('#app')
 
-if(!localStorage.getItem('token')) {
-    console.log('to login ', localStorage.getItem('token'))
-    router.push('login')
-    console.log('to login')
-} else {
-    console.log('to main')
-    router.push('main')
-}
+// if(!localStorage.getItem('token')) {
+//     console.log('to login ', localStorage.getItem('token'))
+//     router.push('login')
+//     console.log('to login')
+// } else {
+//     console.log('to main')
+//     router.push('main')
+// }

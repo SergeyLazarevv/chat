@@ -1,19 +1,12 @@
 <template>
-    <!-- <Header /> -->
     <div class="grid grid-nogutter">
-      <div class="col-fixed" style="width:100px">
+      <div class="col-fixed" style="width:80px">
         <AsideMenu />
       </div>
       <div class="col">
-
-        <h1>Main</h1>
-         <router-link to="/Users">Users</router-link> 
-         <router-link to="/Messages">Messages</router-link> 
+        <router-view/>
       </div>
     </div>
-    <!-- <Sidebar v-model="visibleLeft" :baseZIndex="1000">
-            <h3>Left Sidebar</h3>
-    </Sidebar> -->
 </template>
 
 <script lang="ts">
@@ -28,7 +21,9 @@ export default defineComponent({
     Header,
     AsideMenu
   },
-  setup() {}
+  setup() {
+    onMounted(() => { console.log('main mount')})
+  }
 })
 </script>
 

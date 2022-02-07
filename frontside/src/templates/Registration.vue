@@ -82,7 +82,7 @@ export default {
 
                     console.log('IN VIEW', response)
                     localStorage.setItem('token', response.data)
-                    router.push('main')
+                    router.push('profile')
                 } else {
                     alert('user already exist')
                 }

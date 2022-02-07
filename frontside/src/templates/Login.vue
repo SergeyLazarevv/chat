@@ -1,5 +1,6 @@
 <template>
     <div class="login-form p-d-flex" style='width:50%;max-width:400px;margin:0 auto;'>
+        <router-view/>
         <div class="p-d-flex p-jc-center">
             <div class="card">
                 <h5 class="p-text-center">Вход</h5>
@@ -61,7 +62,7 @@ export default {
 
                     console.log('IN VIEW', response)
                     localStorage.setItem('token', response.data)
-                    router.push('main')
+                    router.push('profile')
                 } else {
                     alert('Пользователь не найден')
                 }

@@ -1,43 +1,24 @@
 import Vue from "vue"
 import { RouteRecordRaw, createWebHistory, createRouter } from "vue-router";
+import login from "./templates/Login.vue"
 
 const routes: Array<RouteRecordRaw> = [
     {
-        path: "/main",
-        name: "main",
+        path: "/profile",
+        name: "profile",
         meta: {
-            title: "Администрирование",
-            label: "Администрирование"
+            title: "Профиль",
+            label: "Профиль",
+            layout: "profile"
         },
-        component: () => import("./view/Main.vue")
-    },
-    {
-        path: "/login",
-        name: "login",
-        meta: {
-            title: "Форма входа",
-            label: "Логин",
-            //ayout: "login"
-        },
-        component: () => import("./view/Login.vue")
-    },
-    {
-        path: "/registration",
-        name: "registration",
-        meta: {
-            title: "Форма регистрации",
-            label: "Регистрация",
-            //layout: "login"
-        },
-        component: () => import("./view/Registration.vue")
+        component: () => import("./view/Profile.vue")
     },
     {
         path: "/users",
         name: "users",
         meta: {
             title: "Пользователи",
-            label: "Пользователи",
-            //layout: "login"
+            label: "Пользователи"
         },
         component: () => import("./view/Users.vue")
     },
@@ -46,8 +27,7 @@ const routes: Array<RouteRecordRaw> = [
         name: "messages",
         meta: {
             title: "Сообщения",
-            label: "Сообщения",
-            //layout: "login"
+            label: "Сообщения"
         },
         component: () => import("./view/Messages.vue")
     }
