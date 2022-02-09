@@ -12,7 +12,6 @@
                     <div class="p-field">
                         <div class="p-float-label">
                             <Password id="password" v-model="password" placeholder="Пароль" toggleMask/>
-                               
                         </div>
                     </div>
                     <Button type="submit" label="Войти" class="p-mt-2" />
@@ -36,7 +35,7 @@ export default {
   
         //const socket: Socket = inject('socket')
         onMounted(() => localStorage.removeItem('token'))
-       console.log('ROUTER ', router)
+    
         const login: Ref<string> = ref('')
         const password: Ref<string> = ref('')
         const store = useStore();

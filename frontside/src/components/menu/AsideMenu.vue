@@ -1,6 +1,6 @@
 <template>
 	<div id="asideMenu">
-		<Avatar icon="pi pi-user" size="xlarge" shape="circle" />
+		<Avatar icon="pi pi-user" size="large" shape="circle" />
 		<router-link class="mt-4" to="/messages">
 			<i class="pi pi-comment" style="font-size: 1.5rem"></i>
 		</router-link> 
@@ -45,7 +45,10 @@ import router from '../../router'
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	background: rgba(161, 157, 157, 0.221);
+	background: rgba(14, 13, 13, 0.921);
 	height: 100%;
+}
+i {
+	color: white;
 }
 </style>

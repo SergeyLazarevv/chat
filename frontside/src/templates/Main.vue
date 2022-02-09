@@ -1,5 +1,5 @@
 <template>
-    <div class="grid grid-nogutter">
+    <div class="main grid grid-nogutter">
       <div class="col-fixed" style="width:80px">
         <AsideMenu />
       </div>
@@ -28,7 +28,8 @@ export default defineComponent({
 </script>
 
 <style>
-.grid {
+.main {
   width: 100%;
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,28,121,0.6082165287990196) 33%, rgba(0,212,255,1) 100%);
 }
 </style>

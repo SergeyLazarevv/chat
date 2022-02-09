@@ -14,6 +14,7 @@ import Sidebar from 'primevue/sidebar';
 import Menubar from 'primevue/menubar';
 import Avatar from 'primevue/avatar';
 import AvatarGroup from 'primevue/avatargroup';
+import Card from 'primevue/card';
 
 import Vuex from "vuex";
 import VueSocketIO from 'vue-socket.io'
@@ -50,6 +51,7 @@ app.component('Sidebar',Sidebar);
 app.component('Menubar', Menubar);
 app.component('Avatar',Avatar);
 app.component('AvatarGroup', AvatarGroup);
+app.component('Card', Card);
  
 const socket = io('http://localhost:8080', {})    
 console.log('9090', socket)
