@@ -54,4 +54,20 @@ export default class UserService extends MysqlDB {
         const UserRepository: Repository<User> = connection.getRepository(User)
         return await UserRepository.findOne({'email': email })
     }
+
+    async getUsersBy(): Promise<Array<User> | undefined> {
+
+        const connection = await this.getConnection()
+        const UserRepository: Repository<User> = connection.getRepository(User)
+        const users = await UserRepository
+            .createQueryBuilder("user")
+            .select("user.id")
+            .addSelect("user.firstName")
+            .addSelect("user.lastName")
+            .addSelect("user.avatar")
+            .addSelect("user.email")
+            .groupBy("user.id")
+            .getRawMany();
+        return users
+    }
 }

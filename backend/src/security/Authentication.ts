@@ -39,12 +39,14 @@ export default class Authentification {
 
                 const key = fs.readFileSync(__dirname+'/../../jwtRS256.key')
                 const authHeader = request.headers['authorization']
-                const token = authHeader.substring(7)
+                console.log('authHeader', authHeader)
+                const token = authHeader ? authHeader : 'null' //authHeader.substring(7)
                 //TODO: set pathList
                 if (token == 'null') {
                     console.log('BAD_AUTH')
                     return 'BAD_AUTH'
                 } else {
+                    console.log('token ', token)
                     const decodeToken = jwt.verify(token, key)
                     console.log('tokennn', token)
                     console.log('decode', decodeToken)

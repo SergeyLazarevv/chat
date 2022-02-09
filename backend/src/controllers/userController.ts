@@ -5,6 +5,9 @@ export async function addUser(request: Request, response: Response) {
 
 }
     
-export async function getUsers(request: Request, response: Response) {
-    response.send("Список пользователей...")
+export async function getUsersBy(request: Request, response: Response) {
+    
+    const userService = new UserService
+    const users = await userService.getUsersBy()
+    response.send(users)
 }
