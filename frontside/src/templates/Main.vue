@@ -30,6 +30,6 @@ export default defineComponent({
 <style>
 .main {
   width: 100%;
-  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,28,121,0.6082165287990196) 33%, rgba(0,212,255,1) 100%);
+  background: radial-gradient(circle, rgba(244,240,241,1) 0%, rgba(239,240,241,1) 100%);
 }
 </style>
