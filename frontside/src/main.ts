@@ -17,7 +17,6 @@ import AvatarGroup from 'primevue/avatargroup';
 import Card from 'primevue/card';
 
 import Vuex from "vuex";
-import VueSocketIO from 'vue-socket.io'
 import store from './vuex/store'
 import { io } from'socket.io-client' 
 
@@ -53,7 +52,7 @@ app.component('Avatar',Avatar);
 app.component('AvatarGroup', AvatarGroup);
 app.component('Card', Card);
  
-const socket = io('http://localhost:8080', {})    
+const socket = io('http://localhost:8000', {})    //8080
 console.log('9090', socket)
 app.provide('socket', socket)
 

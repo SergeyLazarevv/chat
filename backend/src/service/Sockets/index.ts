@@ -1,8 +1,4 @@
-//import { v4 as uuidv4 } from 'uuid';
-
-const http = require('http');
-const server = http.createServer();
-
+export default function init(server) {
 const io = require('socket.io')(server, {
   allowEIO3: true,
   cors: {
@@ -56,7 +52,6 @@ io.on('connection', (socket: any) => {
   
 });
 console.log('all ', io.sockets.connected)
-//console.log('skoka', io.sockets().server.engine.socketsCount)
-// io.sockets.emit('message', "Это для всех");
-server.listen(8080);
+
 console.log('sockerts server start')
+}

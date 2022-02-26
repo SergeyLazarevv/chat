@@ -33,10 +33,9 @@ export default class Authentification {
     }
 
     public static async checkAuth(request, response, next) {
-
         try {
-            if(request.originalUrl != '/auth/registration' && request.originalUrl != '/auth/login') {
-
+            if(!request.originalUrl.includes('/auth/registration') && !request.originalUrl.includes('/auth/login')) {
+                
                 const key = fs.readFileSync(__dirname+'/../../jwtRS256.key')
                 const authHeader = request.headers['authorization']
                 console.log('authHeader', authHeader)
@@ -44,7 +43,7 @@ export default class Authentification {
                 //TODO: set pathList
                 if (token == 'null') {
                     console.log('BAD_AUTH')
-                    return 'BAD_AUTH'
+                    response.send('BAD_AUTH')
                 } else {
                     console.log('token ', token)
                     const decodeToken = jwt.verify(token, key)

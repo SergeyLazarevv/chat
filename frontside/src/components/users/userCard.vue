@@ -1,7 +1,8 @@
 <template>
     <Card class="userCard" style="width: 220px">
         <template #header>
-            <Avatar icon="pi pi-user" size="xlarge" shape="circle" />
+            <!-- <Avatar image="https://xn--d1aiiaife6a2g.xn--p1ai/wp-content/uploads/2020/05/38..jpg" size="xlarge" shape="circle" /> -->
+            <img class="avatar" alt="user header" src="https://xn--d1aiiaife6a2g.xn--p1ai/wp-content/uploads/2020/05/38..jpg">
         </template>
         <template #title>
             <div> {{ user.user_firstName ?? "-" }} </div>
@@ -48,7 +49,8 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 10px 5px;
+    overflow: hidden;
+    /* padding: 10px 5px; */
     border-radius: 10px;
     text-align: center;
     margin: 10px 0;

@@ -68,12 +68,8 @@ export default {
             data.append('email', JSON.stringify(email.value))
 
             let axiosConfig: AxiosRequestConfig = {
-                headers: {
-			        "Content-Type": "multipart/form-data",
-                    "Access-Control-Allow-Origin": "*"
-                },
                 method: 'post',
-                url: 'http://localhost:8000/auth/registration',
+                url: 'auth/registration',
                 data: data
             }
             

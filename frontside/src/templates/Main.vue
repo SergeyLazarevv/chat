@@ -1,5 +1,5 @@
 <template>
-    <div class="main grid grid-nogutter">
+    <div class="main grid">
       <div class="col-fixed" style="width:80px">
         <AsideMenu />
       </div>

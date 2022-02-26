@@ -1,7 +1,7 @@
 <template>
     <div class="grid p-5">
       <div class="col-12">
-        <h1>Users</h1>
+        <h2>Пользователи онлайн: {{ onlineCount }}</h2>
       </div>
         <div class="col md:col-3" v-for="user in users" :key="user.id"> 
           <UserCard :user="user"></UserCard>
@@ -10,10 +10,11 @@
 </template>
 
 <script lang="ts">
-import { ref, Ref, watch, onMounted, defineComponent } from 'vue'
+import { ref, Ref, watch, inject, defineComponent } from 'vue'
 import Request from '../service/Request'
 import { AxiosRequestConfig } from 'axios';
 import UserCard from '../components/users/userCard.vue'
+import { Socket } from 'socket.io-client'
 
 export default defineComponent({
   name: 'Users',
@@ -27,13 +28,8 @@ export default defineComponent({
     })
   
     let axiosConfig: AxiosRequestConfig = {
-      headers: {
-			  "Content-Type": "multipart/form-data",
-        "Access-Control-Allow-Origin": "*",
-        "authorization": localStorage.getItem('token')
-      },
       method: 'post',
-      url: 'http://localhost:8000/user/get-users-by'
+      url: 'user/get-users-by'
     }
 
     Request.send(axiosConfig).then(response => {
@@ -41,8 +37,17 @@ export default defineComponent({
       users.value = response.data
       console.log(users)
     })
+
+    let onlineCount: Ref<number> = ref(0)
+    const socket: Socket = inject('socket')
+
+    socket.emit("setOnline", localStorage.getItem('token'))
+    socket.on("getOnline", (online) => {  
+      console.log('online Grom Server', online)
+      onlineCount.value = online
+    })
   
-    return { users }
+    return { users, onlineCount }
   }
 })
 </script>

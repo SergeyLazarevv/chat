@@ -9,7 +9,7 @@
 
 <script lang='ts'>
 import { ref, Ref, inject, defineComponent, onMounted } from 'vue';
-import { Socket } from'socket.io-client'
+import { Socket } from 'socket.io-client'
 	
 export default defineComponent({
     name: 'Header',
