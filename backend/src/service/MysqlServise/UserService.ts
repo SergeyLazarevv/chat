@@ -18,7 +18,7 @@ export default class UserService extends MysqlDB {
         //.manager.find(User)
     }
 
-    async addUser(login: string, password: string, email: string): Promise<string> {
+    async addUser(login: string, password: string, email: string, name: string): Promise<string> {
       
         const connection = await this.getConnection()
         const RoleServise = new RoleService()
@@ -27,6 +27,7 @@ export default class UserService extends MysqlDB {
         user.email = email  
         user.password = password
         user.login = login      
+        user.firstName = name
     
         const baseRole = await RoleServise.getRole('USER')
         user.role = baseRole
