@@ -14,9 +14,7 @@
                         </div>
                     </div>
                     <Button type="submit" label="Войти" class="p-mt-2 mb-3" />
-
                     <a @click="store.dispatch('chgTemplate', 'registration')">Регистрация</a>
-                    <!-- <router-link to="/registration" class="pt-3">Регистрация</router-link> -->
                 </form>
             </template>
         </Card>

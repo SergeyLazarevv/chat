@@ -1,64 +1,62 @@
 <template>
-    <div class="login-form p-d-flex" style='width:50%;max-width:400px;margin:0 auto;'>
-        <div class="p-d-flex p-jc-center">
-            <div class="card">
-                <h5 class="p-text-center">Регистрация</h5>
+    <div class="registration-page">
+            <Card class="registration-card">
+                <template #content>
+                <h5 class="mb-3">Регистрация</h5>
                 <form @submit.prevent="formSubmit" class="p-fluid">
-                    <div class="p-field">
-                        <div class="p-float-label">
-                            <InputText v-model="login" id="login" placeholder="Имя"/>
-                        </div>
+                    <div class="mb-3">
+                        <InputText v-model="name" id="name" placeholder="Имя"/>
                     </div>
-                    <div class="p-field">
-                        <div class="p-float-label p-input-icon-right">
-                            <i class="pi pi-envelope" />
-                            <InputText id="email"  v-model="email" placeholder="Почта"/>
-                        </div>
-      
+                    <div class="p-float-label p-input-icon-right mb-3">
+                        <i class="pi pi-envelope" />
+                        <InputText id="email"  v-model="email" placeholder="Почта"/>
                     </div>
-                    <div class="p-field">
-                        <div class="p-float-label">
-                            <Password id="password" v-model="password" placeholder="Пароль" toggleMask>
-                                <template #header>
-                                    <h6>Проверка сложности пароля</h6>
-                                </template>
-                                <template #footer="sp">
-                                    {{sp.level}}
-                                    <Divider />
-                                    <p class="p-mt-2">Пароль должен содержать</p>
-                                    <ul class="p-pl-2 p-ml-2 p-mt-0" style="line-height: 1.5">
-                                        <li>Заглавные буквы</li>
-                                        <li>Прописные буквы</li>
-                                        <li>Числа</li>
-                                        <li>Минимум 8 символов</li>
-                                    </ul>
-                                </template>
-                            </Password>
-                        </div>
+                    <div class="mb-3">
+                        <InputText v-model="login" id="login" placeholder="Логин"/>
                     </div>
-                    <Button type="submit" label="Регистрация" class="p-mt-2" />
+                    <div class="mb-3">
+                        <Password id="password" v-model="password" placeholder="Пароль" toggleMask>
+                            <template #header>
+                                <h6>Проверка сложности пароля</h6>
+                            </template>
+                            <template #footer="sp">
+                                {{sp.level}}
+                                <Divider />
+                                <p class="p-mt-2">Пароль должен содержать</p>
+                                <ul class="p-pl-2 p-ml-2 p-mt-0" style="line-height: 1.5">
+                                    <li>Заглавные буквы</li>
+                                    <li>Прописные буквы</li>
+                                    <li>Числа</li>
+                                    <li>Минимум 8 символов</li>
+                                </ul>
+                            </template>
+                        </Password>
+                    </div>
+                    <Button type="submit" label="Регистрация" class="p-mt-2 mb-3" />
+                    <a @click="store.dispatch('chgTemplate', 'login')">Логин</a>
                 </form>
-                <router-link to="/login">Вход</router-link> 
-            </div>
-        </div>
+                </template>
+        </Card>
     </div>
 </template>
 
 <script lang="ts">
-import { inject, onMounted, ref ,Ref} from 'vue';
-import { Socket } from'socket.io-client'
+import { onMounted, ref ,Ref} from 'vue';
 import Request from '../service/Request'
 import router from '../router'
-import axios, { AxiosRequestConfig, AxiosResponse} from 'axios';
+import { AxiosRequestConfig } from 'axios';
+import { useStore } from 'vuex'
 
 export default {
     setup() {
       
         onMounted(() => localStorage.removeItem('token'))
         
+        const name: Ref<string>= ref('');
         const login: Ref<string>= ref('');
         const password: Ref<string> = ref('');
         const email: Ref<string> = ref('');
+        const store = useStore();
 
         const formSubmit = () => {
 
@@ -66,6 +64,7 @@ export default {
             data.append('login', JSON.stringify(login.value))
             data.append('password', JSON.stringify(password.value))
             data.append('email', JSON.stringify(email.value))
+            data.append('name', JSON.stringify(name.value))
 
             let axiosConfig: AxiosRequestConfig = {
                 method: 'post',
@@ -75,9 +74,9 @@ export default {
             
             Request.send(axiosConfig).then(response => {
                 if(response.data != 'USER_LOGIN_EXIST') {
-
                     console.log('IN VIEW', response)
                     localStorage.setItem('token', response.data)
+                    store.dispatch('chgTemplate', 'main')
                     router.push('profile')
                 } else {
                     alert('user already exist')
@@ -85,30 +84,21 @@ export default {
             })
         }
 
-        return {email, login, password, formSubmit}
+        return {email, login, password, formSubmit, store, name}
     }
 }
 </script>
 
 <style lang="scss" scoped>
-.login-form {
-    .card {
-        min-width: 450px;
-
-        form {
-            margin-top: 2rem;
-        }
-
-        .p-field {
-            margin-bottom: 1.5rem;
-        }
-    }
-
-    @media screen and (max-width: 960px) {
-        .card {
-            width: 80%;
-        }
-    }
+.registration-page {
+    width: 100%;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    display: flex;
 }
+.registration-card {
+    width: 450px;
 
+}
 </style>

@@ -1,6 +1,6 @@
 <template>
     <div class="main grid">
-      <div class="col-fixed" style="width:80px">
+      <div class="col-fixed" style="width:80px;padding:0;">
         <AsideMenu />
       </div>
       <div class="col">

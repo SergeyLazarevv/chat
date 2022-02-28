@@ -5,15 +5,17 @@
             <img class="avatar" alt="user header" src="https://xn--d1aiiaife6a2g.xn--p1ai/wp-content/uploads/2020/05/38..jpg">
         </template>
         <template #title>
-            <div> {{ user.user_firstName ?? "-" }} </div>
-            <div> {{ user.user_lastName ?? "-" }} </div>
+            <div class="user_name"> {{ user.user_firstName ? user.user_firstName : "-" }} </div>
+            <div> {{ user.user_lastName ? user.user_lastName : "-" }} </div>
         </template>
         <template #content>
             <div> {{ user.user_email ?? "-" }} </div>
         </template>
-        <template #footer class="userCard_footer">
-            <i class="pi pi-home" style="font-size: 1.5rem"></i>
-            <i class="pi pi-comment" style="font-size: 1.5rem"></i>
+        <template #footer>
+            <div class="userCard_footer">
+                <i class="pi pi-home" style="font-size: 1.5rem"></i>
+                <i class="pi pi-comment" style="font-size: 1.5rem"></i>
+            </div>
         </template>
     </Card>
 </template>
@@ -44,7 +46,8 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+
 .userCard {
     display: flex;
     flex-direction: column;
@@ -54,19 +57,26 @@ export default {
     border-radius: 10px;
     text-align: center;
     margin: 10px 0;
+    min-height: 55px;
+    .user_name {
+        font-size: 20px;
+    }
+    ::v-deep(.p-card-body) {
+        width:100%;
+    }
+    .userCard_footer {
+        display: flex;
+        justify-content: space-around;
+        /* border-top: 1px solid rgba(0,0,0,.1); */
+    }
+    .pi {
+        transition: .4s;
+        color: rgba(0,0,0,.5);
+    }
+    .pi:hover {
+        cursor: pointer;
+        transform: scale(1.05);
+    }
 }
-.p-card-body {
-    width:100%;
-}
-.p-card-footer {
-    display: flex;
-    justify-content: space-evenly;
-}
-.pi {
-    transition: .4s;
-}
-.pi:hover {
-    cursor: pointer;
-    transform: scale(1.2);
-}
+
 </style>
