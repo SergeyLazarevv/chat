@@ -1,9 +1,12 @@
 <template>
-    <div class="grid">
-      <div class="col">
-        <h1>Messages</h1> 
-      </div>
+  <div class="grid p-5">
+    <div class="col-12">
+      <!-- <MessagePreview></MessagePreview> -->
     </div>
+    <!-- <div class="col md:col-3" v-for="messagesList in messages"> 
+      <Messages></Messages>
+    </div> -->
+  </div>
 </template>
 
 <script lang="ts">
@@ -15,7 +18,10 @@ import { Socket } from'socket.io-client'
 export default defineComponent({
   name: 'Messages',
   components: {},
-  setup() {}
+  setup() {
+
+    const messagesList: Ref<any> = ref([])
+  }
 })
 </script>
 

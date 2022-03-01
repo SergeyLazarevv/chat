@@ -20,9 +20,19 @@ io.on('connection', (socket: any) => {
     io.sockets.emit('getOnline', Object.keys(users).length)
    });
 
+  /////////////////////////////////////////////
+
+  socket.on('addUser', (data: any) => { 
+    console.log('data event', data)
+   });
+
+  //////////////////////////////////
+
   socket.on('event', (data: any) => { 
     console.log('data event', data)
    });
+
+   ////////////////////////////////////////////
 
    socket.on('message', (text: string) => { 
     console.log('message event', text)
@@ -36,10 +46,14 @@ io.on('connection', (socket: any) => {
     }
    });
 
+   ////////////////////////
+
    socket.on('login', (data: any) => { 
     console.log('login data ', data)
     io.emit('login', 'wellcome')
    });
+
+   //////////////////////////
 
   socket.on('disconnect', (err: any) => { 
     console.log('disconnetc', socket.id)
@@ -47,8 +61,11 @@ io.on('connection', (socket: any) => {
     io.sockets.emit('getOnline', Object.keys(users).length)
     console.log('diss', err)
    });
-   socket.broadcast.emit('message', 'Only for you');
-   io.emit("message", 'response from message emit');
+
+   //////////////////////////////////
+
+   //socket.broadcast.emit('message', 'Only for you');
+   //io.emit("message", 'response from message emit');
   
 });
 console.log('all ', io.sockets.connected)

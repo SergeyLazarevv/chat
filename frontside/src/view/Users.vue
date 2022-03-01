@@ -3,10 +3,10 @@
       <div class="col-12">
         <h2>Пользователи онлайн: {{ onlineCount }}</h2>
       </div>
-        <div class="col md:col-3" v-for="user in users" :key="user.id"> 
-          <UserCard :user="user"></UserCard>
-        </div>
+      <div class="col md:col-3" v-for="user in users" :key="user.id"> 
+        <UserCard :user="user"></UserCard>
       </div>
+    </div>
 </template>
 
 <script lang="ts">

@@ -1,5 +1,6 @@
 import {Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable} from "typeorm";
 import { Role } from './Role'
+import { Rooms } from "./Rooms"
 
 @Entity()
 export class User {
@@ -37,4 +38,8 @@ export class User {
     @ManyToMany(() => Role, role => role.name)
     @JoinTable()
     role: Array<Role>;
+
+    @ManyToMany(() => Rooms, rooms => rooms.id)
+    @JoinTable()
+    rooms: Array<Rooms>
 }

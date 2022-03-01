@@ -1,6 +1,6 @@
 <template>
 	<div id="asideMenu">
-		<Avatar icon="pi pi-user" size="large" shape="circle" />
+		<Avatar image="https://xn--d1aiiaife6a2g.xn--p1ai/wp-content/uploads/2020/05/38..jpg" size="large" shape="circle"/>
 		<router-link class="mt-4" to="/messages">
 			<i class="pi pi-comment" style="font-size: 1.5rem"></i>
 		</router-link> 

@@ -33,6 +33,7 @@ services:
             - chatDatabase
         volumes: 
             - ./backend:/chatBackend
+        #command: npm run dev
         restart: unless-stopped
         #env_file: ./.env
         ports:

@@ -8,5 +8,4 @@ COPY backend/ /chatBackend/
 #RUN npm install
 #RUN npm run dev
 EXPOSE 8000
-
-CMD npm run dev
+#CMD ["npm run dev"]
