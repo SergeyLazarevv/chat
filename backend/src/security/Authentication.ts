@@ -26,7 +26,7 @@ export default class Authentification {
         return jwt.sign(payload, key)
     }
 
-    public static async verifyToken(token: string): Promise<any> {
+    public static async verifyToken(token: string): Promise<string> {
         
         const key = fs.readFileSync(__dirname+'/../../jwtRS256.key')
         return jwt.verify(token, key)
@@ -45,11 +45,11 @@ export default class Authentification {
                     console.log('BAD_AUTH')
                     response.send('BAD_AUTH')
                 } else {
-                    console.log('token ', token)
+                    //console.log('token ', token)
                     const decodeToken = jwt.verify(token, key)
-                    console.log('tokennn', token)
-                    console.log('decode', decodeToken)
-                    console.log('RRR', request.originalUrl)
+                    console.log('AUTH ASSESS token => ', token)
+                    console.log('decode token ', decodeToken)
+                    // console.log('RRR', request.originalUrl)
                     next()
                 }
             } else {

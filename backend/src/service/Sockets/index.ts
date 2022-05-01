@@ -1,3 +1,7 @@
+import RoomService from "../MysqlServise/RoomService";
+import _UserServise from "../MysqlServise/UserService";
+import Auth from "../../security/Authentication"
+
 export default function init(server) {
 const io = require('socket.io')(server, {
   allowEIO3: true,
@@ -9,21 +13,71 @@ const io = require('socket.io')(server, {
 });
 
 const users = {};
+const RoomServise = new RoomService();
+const UserServise = new _UserServise();
 
 io.on('connection', (socket: any) => {
 
-  socket.on('setOnline', (token: any) => { 
+  socket.on('setOnline', async (token: any) => { 
     console.log('sets online ', token)
-    users[socket.id] = token
+    // let rooms = RoomServise.getRooms(token)
+    // console.log("ROOMS ", rooms)
+    
+    const user = await Auth.verifyToken(token)
+    users[socket.id] = user
+
     console.log(users)
-    console.log(Object.keys(users).length)
-    io.sockets.emit('getOnline', Object.keys(users).length)
+    console.log('emit new online, current online', Object.keys(users).length)
+    io.sockets.emit('updateOnline', user)
    });
+
+  //socket.on('logO')
 
   /////////////////////////////////////////////
 
   socket.on('addUser', (data: any) => { 
     console.log('data event', data)
+   });
+
+  /////////////////////////////
+
+  socket.on('logOut', () => {
+    console.log('logOut ', users[socket.id].email)
+    console.log(users[socket.id].email)
+    console.log(users[socket.id]['email'])
+    console.log(users[socket.id])
+    io.sockets.emit('removeOnline', users[socket.id])
+    delete users[socket.id];
+    console.log('current online ', Object.keys(users).length)
+  })
+
+  ///////////////////////////////////////
+
+  socket.on('getUsers', async () => { 
+    console.log('getting users')
+    let dbUsers = await UserServise.getUsersBy();
+    if(Object.keys(users).length) {
+
+     let newUsers = dbUsers.map(dbUser => {
+       dbUser['online'] = !!Object.values(users).find((user) => {
+         //console.log('user ', user['email'])
+         //console.log('dbUser ', dbUser['email'])
+         return user['email'] === dbUser['email']}
+         )
+       return dbUser
+      })
+    //  dbUsers.map(user => {
+    //    console.log(user)
+    //    console.log(Object.values(users).find((user) => user['email'] === dbUsers['user_email']))
+    //   })
+
+    //   console.log( Object.values(users))
+    //   console.log()
+      //console.log('new Users ', newUsers)
+      io.emit('setUsers', newUsers);
+    } else {
+      io.emit('setUsers', users);
+    }
    });
 
   //////////////////////////////////
@@ -55,11 +109,13 @@ io.on('connection', (socket: any) => {
 
    //////////////////////////
 
-  socket.on('disconnect', (err: any) => { 
-    console.log('disconnetc', socket.id)
+  socket.on('disconnect', (mess: any) => { 
+    console.log('disconnect socket id', socket.id)
+    io.sockets.emit('removeOnline', users[socket.id])
     delete users[socket.id];
-    io.sockets.emit('getOnline', Object.keys(users).length)
-    console.log('diss', err)
+    console.log('users ', users)
+    console.log('disconnect message', mess)
+    console.log('current online ', Object.keys(users).length)
    });
 
    //////////////////////////////////

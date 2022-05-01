@@ -31,7 +31,7 @@ export default defineComponent({
         const socket: Socket = inject('socket')
 
         socket.emit("setOnline", localStorage.getItem('token'))
-        socket.on("getOnline", (online) => {  
+        socket.on("updateOnline", (online) => {  
             console.log('online Grom Server', online)
             onlineCount.value = online
         })

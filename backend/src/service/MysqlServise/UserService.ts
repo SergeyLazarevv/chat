@@ -32,7 +32,7 @@ export default class UserService extends MysqlDB {
         const baseRole = await RoleServise.getRole('USER')
         user.role = baseRole
 
-        console.log('use before save', user)
+        //console.log('use before save', user)
         
         await connection.manager.save(user)
 
@@ -45,7 +45,7 @@ export default class UserService extends MysqlDB {
         }
         
         const accessToken = Authentification.generateAccessToken(payload)
-        console.log("newUser token=> ", accessToken)
+        //console.log("newUser token=> ", accessToken)
         return accessToken
     }
 
@@ -68,7 +68,12 @@ export default class UserService extends MysqlDB {
             .addSelect("user.avatar")
             .addSelect("user.email")
             .groupBy("user.id")
-            .getRawMany();
+            .getMany();
         return users
+    }
+
+    setToken(token: string): void {
+
+
     }
 }

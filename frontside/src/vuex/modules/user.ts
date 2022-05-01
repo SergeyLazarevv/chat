@@ -1,22 +1,23 @@
 import { GetterTree, MutationTree, ActionTree } from "vuex"
+import { User, Role } from "../../types/vuex"
 
-export interface User {
-    id: number,
-    clearStorage?: boolean
-    department?: string
-    dept?: string
-    mail?: string
-    position?: string
-    role: Array<Role['name']>
-    sector?: string
-    username?: string
-}
+// export interface User {
+//     id: number,
+//     clearStorage?: boolean
+//     department?: string
+//     dept?: string
+//     mail?: string
+//     position?: string
+//     role: Array<Role['name']>
+//     sector?: string
+//     username?: string
+// }
 
-export interface Role {
-    name: string,
-    id: number,
-    description: string
-}
+// export interface Role {
+//     name: string,
+//     id: number,
+//     description: string
+// }
 
 interface State {
     user: User

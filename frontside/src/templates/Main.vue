@@ -10,10 +10,11 @@
 </template>
 
 <script lang="ts">
-import { ref, Ref, inject, onMounted, defineComponent } from 'vue'
+import { ref, Ref, inject, onMounted, onUpdated, onActivated, onDeactivated, defineComponent } from 'vue'
 import  Header from '../components/header/Header.vue'
 import AsideMenu from '../components/menu/AsideMenu.vue'
 import { Socket } from'socket.io-client'
+import { useStore } from "vuex";
 
 export default defineComponent({
   name: 'Main',
@@ -22,7 +23,45 @@ export default defineComponent({
     AsideMenu
   },
   setup() {
-    onMounted(() => { console.log('main mount')})
+
+    const store = useStore();
+    const socket: Socket = inject('socket')
+
+    onMounted(() => { 
+      console.log('main mount !!!! set online', socket)
+      let token = localStorage.getItem('token')
+
+      if(!token) {
+        store.dispatch('chgTemplate', 'login')
+      } else {
+        
+        socket.emit("setOnline", token)
+        socket.emit("getUsers")
+        
+        socket.on("setUsers", (users) => {  
+          console.log('user list from server', users)
+          store.dispatch('setUsers', users)
+        })
+        
+        socket.on("updateOnline", (user) => {  
+          console.log('new user online from Server', user)
+          store.dispatch('setOnline', user)
+        })
+  
+        socket.on("removeOnline", (user) => {
+          console.log(user.email + "log off")
+          store.dispatch('setOffline', user)
+        })
+      }
+
+    })
+
+    onUpdated(() => {
+      console.log('main UPDATE !!@@')
+    });
+
+    onActivated(() => console.log('main ACTIVATED'))
+    onDeactivated(() => console.log('main DEACTIVATED'))
   }
 })
 </script>

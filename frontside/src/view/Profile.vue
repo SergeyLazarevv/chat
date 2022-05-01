@@ -33,7 +33,9 @@ import { Socket } from'socket.io-client'
 export default defineComponent({
   name: 'Profile',
   components: {},
-  setup() {}
+  setup() {
+    onMounted(() => console.log('profile MOUNT'))
+  }
 })
 </script>
 

@@ -9,14 +9,14 @@ export default abstract class MysqlDB {
         let newConnection: Connection | undefined
         
         if(!manager.has('default')) {
-            console.log('cteate new connection')
+            //console.log('cteate new connection')
             await createConnection().then(async (connection: Connection) => {
                 newConnection = connection
             }).catch(error => {
-                console.log('ORM ERROR', error)
+                //console.log('ORM ERROR', error)
             })
         } else {
-            console.log('connection exist')
+            //console.log('connection exist')
             return getConnection()
         }
 

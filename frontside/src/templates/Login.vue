@@ -23,7 +23,7 @@
 
 <script lang="ts">
 import { ref, Ref, inject, onMounted } from 'vue';
-import axios, { AxiosRequestConfig, AxiosResponse} from 'axios';
+import { AxiosRequestConfig } from 'axios';
 import router from '../router'
 import Request from '../service/Request'
 import { useStore } from "vuex";

@@ -12,7 +12,7 @@ export class Messages {
     text: string
 
     @Column({nullable: true})
-    image: Array<string>;
+    image: string;
 
     @CreateDateColumn({ name: 'created_at', nullable: false })
     createdAt: Date;

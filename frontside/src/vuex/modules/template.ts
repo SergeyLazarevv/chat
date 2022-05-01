@@ -1,5 +1,4 @@
 import { GetterTree, MutationTree, ActionTree } from "vuex"
-
 interface State {
     template: string
 }

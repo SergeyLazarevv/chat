@@ -5,17 +5,18 @@
             <img class="avatar" alt="user header" src="https://xn--d1aiiaife6a2g.xn--p1ai/wp-content/uploads/2020/05/38..jpg">
         </template>
         <template #title>
-            <div class="user_name"> {{ user.user_firstName ? user.user_firstName : "-" }} </div>
-            <div> {{ user.user_lastName ? user.user_lastName : "-" }} </div>
+            <div class="user_name"> {{ user.firstName ? user.firstName : "-" }} </div>
+            <div> {{ user.lastName ? user.lastName : "-" }} </div>
         </template>
         <template #content>
-            <div> {{ user.user_email ?? "-" }} </div>
+            <div> {{ user.email ?? "-" }} </div>
         </template>
         <template #footer>
             <div class="userCard_footer">
                 <i class="pi pi-home" style="font-size: 1.5rem"></i>
                 <i class="pi pi-comment" style="font-size: 1.5rem"></i>
             </div>
+            <div v-if="user.online">ONLINE</div>
         </template>
     </Card>
 </template>
@@ -33,9 +34,9 @@ export default {
 
     setup(props) {
 
-        console.log('proops', props.user)
-        console.log('proops 2', props)
-        console.log('proops', props.user.user_email)
+        // console.log('proops', props.user)
+        // console.log('proops 2', props)
+        // console.log('proops', props.user.user_email)
    
         onMounted(() => {
             console.log('user card mount')

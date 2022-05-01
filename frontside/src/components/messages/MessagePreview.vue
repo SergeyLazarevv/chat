@@ -1,12 +1,9 @@
 <template>
-  <div class="grid p-5">
-    <div class="col-12">
-      <MessagePreview></MessagePreview>
+    <div class="grid p-5">
+        <div class="col-12">
+
+        </div>
     </div>
-    <div class="col md:col-3" v-for="messages in messagesList" :key="messages"> 
-      <Messages :messages="messages"></Messages>
-    </div>
-  </div>
 </template>
 
 <script lang="ts">
@@ -17,11 +14,11 @@ import { ref, Ref, inject, onMounted, defineComponent } from 'vue'
 import { Socket } from'socket.io-client'
 
 export default defineComponent({
-  name: 'Messages',
+  name: 'MessagePreview',
   components: {},
   setup() {
 
-    onMounted(() => console.log('messages MOUNT'))
+    onMounted(() => console.log('MessagePreview MOUNT'))
 
     const messagesList: Ref<any> = ref([])
   }

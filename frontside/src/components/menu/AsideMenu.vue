@@ -14,41 +14,46 @@
 	</div>
 </template>
 
-<script>
-import { defineComponent, onMounted } from 'vue';
+<script lang="ts">
+import { defineComponent, inject } from 'vue';
 import { useStore } from "vuex"
 import router from '../../router'
+import { Socket } from 'socket.io-client'
 	
-    export default defineComponent({
-        name: 'AsideMenu',
-        components: {
+export default defineComponent({
+    name: 'AsideMenu',
+    components: {
    
-        },
+    },
 
-        setup() {
+    setup() {
 
-			const store = useStore();
+		const store = useStore();
+		const socket: Socket = inject('socket')
             
-			let logout = () => {
-				localStorage.removeItem('token')
-				store.dispatch('chgTemplate', 'login')
-				router.push('/')
-			}
+		const logout = (): void => {
+			
+			localStorage.removeItem('token')
+			//socket.disconnect()
+			socket.emit("logOut")
+			store.dispatch('chgTemplate', 'login')
+			router.push('/')
+		}
 
-			return { logout }
-        }
-    })
+		return { logout }
+    }
+})
 </script>
 <style>
-#asideMenu {
-	padding: 20px 0;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	background: rgba(14, 13, 13, 0.921);
-	height: 100%;
-}
-i {
-	color: white;
-}
+	#asideMenu {
+		padding: 20px 0;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		background: rgba(14, 13, 13, 0.921);
+		height: 100%;
+	}
+	i {
+		color: white;
+	}
 </style>
